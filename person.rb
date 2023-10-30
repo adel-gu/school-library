@@ -2,7 +2,7 @@ require "./nameable.rb"
 class Person < Nameable
   LIGAL_AGE = 18
 
-  attr_reader :id
+  attr_reader :id, :rentals
   attr_accessor :name, :age
 
   def initialize(age, name = 'Uknown', parent_permission: true)
@@ -10,6 +10,7 @@ class Person < Nameable
     @age = age
     @name = name
     @parent_permission = parent_permission
+    @rentals = []
   end
 
   def can_use_services?
@@ -18,6 +19,11 @@ class Person < Nameable
 
   def correct_name
     @name
+  end
+
+  def add_rentals(rental)
+    @rentals << rental unless @rentals.include?(rental)
+    rental.person = self
   end
 
   private
